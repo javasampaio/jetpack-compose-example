@@ -60,7 +60,7 @@ fun MainView() {
         },
         bottomBar = {
             DefaultBottomBar()
-        }
+        },
     )
 }
 
