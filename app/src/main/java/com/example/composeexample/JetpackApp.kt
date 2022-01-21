@@ -5,6 +5,7 @@ import com.example.composeexample.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class JetpackApp : Application() {
 
@@ -12,7 +13,7 @@ class JetpackApp : Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger()
+            androidLogger(Level.ERROR)
             androidContext(this@JetpackApp)
             modules(appModule)
         }

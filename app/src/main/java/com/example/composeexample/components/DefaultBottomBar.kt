@@ -1,6 +1,5 @@
 package com.example.composeexample.components
 
-import android.content.Intent
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -14,10 +13,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.composeexample.ListActivity
+import androidx.navigation.NavHostController
+import com.example.composeexample.navigation.NavigationRoute
 
 @Composable
-fun DefaultBottomBar() {
+fun DefaultBottomBar(navController: NavHostController) {
     val selectedState = remember {
         mutableStateOf(0)
     }
@@ -35,7 +35,8 @@ fun DefaultBottomBar() {
             selected = (selectedState.value == 1),
             onClick = {
                 selectedState.value = 1
-                context.startActivity(Intent(context, ListActivity::class.java))
+                //context.startActivity(Intent(context, ListActivity::class.java))
+                navController.navigate(NavigationRoute.LIST_VIEW)
             },
             icon = { Icon(Icons.Default.Favorite, contentDescription = "Favorite") },
             label = { Text(text = "Favorite") }

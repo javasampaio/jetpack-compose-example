@@ -25,14 +25,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
+import com.example.composeexample.components.CustomExtededFAB
 import com.example.composeexample.components.DefaultScaffold
 import com.example.composeexample.components.DefaultToolbar
 import com.example.composeexample.model.Message
-import com.example.composeexample.ui.theme.ComposeExampleTheme
+import com.example.composeexample.ui.theme.*
 import org.koin.android.ext.android.inject
 
 class ListActivity : ComponentActivity() {
@@ -61,14 +63,7 @@ class ListActivity : ComponentActivity() {
             },
             content = { Conversation(messages = viewModel.messages) }
         ) {
-            Box(contentAlignment = Alignment.BottomEnd, modifier = Modifier.fillMaxWidth()) {
-                ExtendedFloatingActionButton(
-                    text = { Text(text = "Add") },
-                    onClick = { viewModel.addNewMessage() },
-                    modifier = Modifier.padding(12.dp),
-                    icon = { Icon(Icons.Filled.Add, contentDescription = "") }
-                )
-            }
+            CustomExtededFAB(callback = { viewModel.addNewMessage() })
         }
     }
 
@@ -79,7 +74,10 @@ class ListActivity : ComponentActivity() {
         messageState.value.let {
             LazyColumn {
                 items(it) { message ->
-                    MessageCard(message)
+                ListCard(message = message, onClickItem = {
+
+                })
+                //MessageCard(message)
                 }
             }
         }
@@ -87,8 +85,22 @@ class ListActivity : ComponentActivity() {
     }
 
     @Composable
+    fun ListCard(message: Message, onClickItem: (message: Message) -> Unit) {
+        Row(modifier = Modifier.padding(all = dimen12Dp)) {
+            Image(
+                painter = painterResource(id = R.drawable.profile_picture),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(dimen40Dp)
+                    .clip(CircleShape)
+                    .border(dimen1HalfDp, MaterialTheme.colors.secondaryVariant)
+            )
+        }
+    }
+
+    @Composable
     fun MessageCard(msg: Message) {
-        Row(modifier = Modifier.padding(all = 12.dp)) {
+        Row(modifier = Modifier.padding(all = dimen12Dp)) {
             Image(
                 painter = painterResource(R.drawable.profile_picture),
                 contentDescription = null,
@@ -97,7 +109,7 @@ class ListActivity : ComponentActivity() {
                     .clip(CircleShape)
                     .border(1.5.dp, MaterialTheme.colors.secondaryVariant, CircleShape)
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(dimen8Dp))
 
             // We keep track if the message is expanded or not in this
             // variable
