@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -28,7 +29,6 @@ import androidx.navigation.navArgument
 import com.example.composeexample.components.DefaultBottomBar
 import com.example.composeexample.components.DefaultScaffold
 import com.example.composeexample.components.DefaultToolbar
-import com.example.composeexample.model.Message
 import com.example.composeexample.navigation.NavigationArgsNames
 import com.example.composeexample.navigation.NavigationRoute
 import com.example.composeexample.ui.theme.ComposeExampleTheme
@@ -54,7 +54,12 @@ fun NavController() {
     NavHost(navController = navController, startDestination = NavigationRoute.HOME) {
         composable(NavigationRoute.HOME) { MainView(navController) }
         composable(NavigationRoute.LIST_VIEW) {
-            ListView(navController)
+            ListView(navigationCallback = {
+                navController.popBackStack()
+            },
+            onItemClick = {
+                navController.navigate(NavigationRoute.getDetailsRoute(it))
+            })
         }
         composable(
             NavigationRoute.DETAILS_VIEW,

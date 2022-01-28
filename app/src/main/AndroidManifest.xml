@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".ListActivity"/>
+        <activity android:name=".fragments.ListActivityXml"/>
     </application>
 
 </manifest>

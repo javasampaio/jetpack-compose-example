@@ -93,7 +93,7 @@ class ListActivity : ComponentActivity() {
                 modifier = Modifier
                     .size(dimen40Dp)
                     .clip(CircleShape)
-                    .border(dimen1HalfDp, MaterialTheme.colors.secondaryVariant)
+                    .border(dimen1point5Dp, MaterialTheme.colors.secondaryVariant)
             )
         }
     }

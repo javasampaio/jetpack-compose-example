@@ -1,5 +1,6 @@
 package com.example.composeexample.components
 
+import android.content.Intent
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -14,7 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.composeexample.navigation.NavigationRoute
+import com.example.composeexample.fragments.ListActivityXml
 
 @Composable
 fun DefaultBottomBar(navController: NavHostController) {
@@ -35,8 +36,8 @@ fun DefaultBottomBar(navController: NavHostController) {
             selected = (selectedState.value == 1),
             onClick = {
                 selectedState.value = 1
-                //context.startActivity(Intent(context, ListActivity::class.java))
-                navController.navigate(NavigationRoute.LIST_VIEW)
+                context.startActivity(Intent(context, ListActivityXml::class.java))
+                //navController.navigate(NavigationRoute.LIST_VIEW)
             },
             icon = { Icon(Icons.Default.Favorite, contentDescription = "Favorite") },
             label = { Text(text = "Favorite") }
